@@ -1,0 +1,38 @@
+---
+- name: helping out raf with copy, unarchive, checksum, run script
+  hosts: planetexpress
+
+  vars:
+          goodcheck: xyz
+
+  tasks:
+
+          ## Copy the tarzip to uor targets hosts
+          - name: Copy to targets
+            copy:
+                    src: ~/ans/files/demoscript.py
+                    dest: ~/
+
+          ## untar/unzip (archive)
+          - name: untar and unzip
+            unarchive: 
+            remote_src: yes
+            src: ~/ans/files/demoscript.tar.gz
+            dest: ~/
+
+          ## Checksum verification
+          - name: perform checksum and verify the destination checksum matches source
+            stat: 
+                   checksum_algoritm: md5
+                   path: ~/demoscript.py
+            register: raffact
+
+          - name: print out to the screen what hte heck is raffact???
+            debug:
+                    var: raffact.stat.checksum != goodcheck
+          - name: run the script if we made this far
+            shell: ~/demoscript.py
+            args:
+                executable: python3
+
+            #### run our script only IF checksum is correct
