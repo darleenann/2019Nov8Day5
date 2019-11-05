@@ -1,0 +1,16 @@
+---
+- name: learning about get url
+  hosts: planetexpress:!farnsworth
+
+  tasks: 
+         - name: download virus protection software
+           get_url:
+                 url: http://www.clamav.net/downloads/production/clamav-0.99.3.tar.gz
+                 dest: "~/{{ inventory_hostname }}.clamav-0.99.3.tar.gz"
+
+         - name: archive a file that is already on the remote machine
+           unarchive:
+                   src: "~/{{ inventory_hostname }}.clamav-0.99.3.tar.gz"
+                   dest: ~/
+                   remote_src: yes
+
