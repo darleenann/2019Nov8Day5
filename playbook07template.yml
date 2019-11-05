@@ -1,0 +1,16 @@
+---
+- name: building finsihed files from jinja templates
+  hosts: planetexpress
+
+  vars:
+          ship_name: voyager
+          ship_type: machplus
+          engine_type: plasma
+          ship_price_in_usd: barter
+
+  tasks:
+          - name: call the template
+            template: 
+                    src: ~/ans/templates/ship.cfg.j2
+                    # this is on the remote machine we connect to
+                    dest: ~/ship.cfg.j2
