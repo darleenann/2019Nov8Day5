@@ -3,14 +3,20 @@
   hosts: planetexpress:!farnsworth
 
   tasks: 
+
+         - name: create a directory for downloading to
+           file:
+                   state: directory
+                   path: "~/download/"
+         
          - name: download virus protection software
            get_url:
                  url: http://www.clamav.net/downloads/production/clamav-0.99.3.tar.gz
-                 dest: "~/{{ inventory_hostname }}.clamav-0.99.3.tar.gz"
+                 dest: "~/download/{{ inventory_hostname }}.clamav-0.99.3.tar.gz"
 
          - name: archive a file that is already on the remote machine
            unarchive:
-                   src: "~/{{ inventory_hostname }}.clamav-0.99.3.tar.gz"
-                   dest: ~/
+                   src: "~/download/{{ inventory_hostname }}.clamav-0.99.3.tar.gz"
+                   dest: ~/download/
                    remote_src: yes
 
