@@ -1,0 +1,17 @@
+## Vars variables for playbook09.yml
+absentorpresent: present
+freegamesapt:
+        - nethack-console
+        - moon-buggy
+        - nudoku
+        - greed
+        - pacman4console
+        - ninvaders
+        - zangband
+        - bastet
+        - robotfindskitten
+
+freegamesyum:
+        - epel-release
+        - moon-buggy
+        - nudoku

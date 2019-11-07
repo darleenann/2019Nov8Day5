@@ -1,0 +1,23 @@
+---
+- name: learning to use the when statemnet
+  hosts: planetexpress
+
+  gather_facts: yes ## default for this is always facts
+
+  vars_files:
+          - vars/gotg.yml
+
+  tasks:
+          - name: install only on apt based systems
+            when: ansible_pkg_mgr == "apt"
+            become: yes
+            apt:
+                    name: "{{ freegamesapt }}"
+                    state: "{{ absentorpresent }}"
+
+          - name: Install only on yum based systems
+            when: ansible_pkg_mgr == "yum"
+            yum:
+                    name: "{{ freegamesyum }}"
+                    state: "{{ absentorpresent }}"
+            become: yes

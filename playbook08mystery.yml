@@ -13,6 +13,8 @@
               upgrade: dist
               update_cache: yes
       become: yes
+      tags:
+              - svrsetup
 
     - name: install additional apps 
       apt:
@@ -24,27 +26,42 @@
                       - fail2ban
               state: present
       become: yes
+      tags:
+              - svrsetup
 
     - name: make direcory to install to
       file:
               path: ~/minecraft
               state: directory
+      tags:
+              - mcdeploy
 
     - name: move our start script into directory
       copy: 
               src: ~/ans/files/run.sh
               dest: ~/minecraft/
               mode: u+x
+      tags:
+              - mcdeploy
+
+
     - name: Download minecraft server
       get_url:
               url: "{{ mc_version }}"
               dest: ~/minecraft/minecraft_server.jar
+      tags:
+              - mcdeploy
 
+
+ 
     - name: move eula into minecraft directory
       copy: 
               src: ~/ans/files/eula.txt
               dest: ~/minecraft/
+      tags:
+              - mcdeploy
     
     - name: start the server for the first time
       command: "chdir=~/minecraft/ screen -S minecraft -d -m ~/minecraft/run.sh"
-
+      tags:
+              - mcdeploy
