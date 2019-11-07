@@ -1,0 +1,6 @@
+---
+- name: trying to deploy a proxy
+  hosts: planetexpress:!farnsworth
+  become: yes
+  roles:
+          -geerlingguy.haproxy

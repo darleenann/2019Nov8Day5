@@ -1,0 +1,24 @@
+---
+- name: demo juniper roles/functions modules
+  hosts: localhost
+
+  roles:
+          - junier.junos
+  
+  vars:
+          creds:
+                  ##    host: "{{ ansible_host }}"
+                  ##  port: "{{ ansible_port }}"
+                  ## password: "{{ hostpass }}"
+
+                  host: juniper.switch
+                  port: 443
+                  password: alta3
+
+
+  tasks:
+          - name: testing out a juniper module
+              juniper_junos_facts:
+                      provider: "{{ creds }}"
+                      savedir: ~/output/
+                      config_format: json
