@@ -1,0 +1,40 @@
+---
+- name: Recalling Vars
+  hosts: localhost
+
+
+  vars_files:
+          - ~/ans/vars/frivars.yml
+
+  tasks:
+          - name: Recall a variable
+            debug: 
+                    var: dayoftheweek
+
+          - name: Print everything within ipv4
+            debug:
+                    var: prefix_list.ipv4 
+                    #loop:
+
+          - name: not sure
+            debug:
+                    var: item.name
+            loop: "{{ prefix_list.ipv4 }}"
+
+            #- name: print act and or rule or somthing else
+            # debug:
+            #       var: item
+            #loop: "{{ prefix_list.ipv4(name) }}"
+
+          - name: list of nums
+            set_fact:
+                    listofnums: "{{ prefix_list.ipv4|map(attribute='seq')|list }}"
+
+          - name: print listofnums
+            debug:
+                    var: listofnums
+
+          - name: print 10 20 30
+            debug:
+                    var: item.num
+            loop: "{{ listofnums|flatten }}"

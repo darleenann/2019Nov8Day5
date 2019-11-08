@@ -1,0 +1,10 @@
+---
+- name: how to gather data from gathered facts
+  hosts: planetexpress
+  gather_facts: yes
+
+  tasks:
+          - name: grab data from gathered facts
+            # loop:
+            debug: 
+                     var: ansible_facts.date_time.iso8601_basic_short
